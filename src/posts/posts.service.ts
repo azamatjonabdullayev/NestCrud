@@ -1,0 +1,7 @@
+import { Injectable, Post } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
+
+@Injectable()
+export class PostsService {
+  constructor(private prisma: PrismaService) {}
+}
