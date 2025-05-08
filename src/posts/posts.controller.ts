@@ -3,8 +3,8 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
+  Put,
   Delete,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
@@ -13,28 +13,33 @@ import { PostsService } from './posts.service';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Post()
-  create(@Body() createPostDto: any) {
-    return this.postsService.create(createPostDto);
+  // Create a new post
+  @Post('new')
+  async createPost(@Body() body: any) {
+    return this.postsService.createPost(body);
   }
 
-  @Get()
-  findAll() {
-    return this.postsService.findAll();
+  // Get all posts
+  @Get('all')
+  async getAllPosts() {
+    return this.postsService.getAllPosts();
   }
 
+  // Get a specific post by id
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
+  async getPostById(@Param('id') id: string) {
+    return this.postsService.getPostById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: any) {
-    return this.postsService.update(+id, updatePostDto);
+  // Update a post
+  @Put(':id')
+  async updatePost(@Param('id') id: string, @Body() body: any) {
+    return this.postsService.updatePost(id, body);
   }
 
+  // Delete a post
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(+id);
+  async deletePost(@Param('id') id: string) {
+    return this.postsService.deletePost(id);
   }
 }
